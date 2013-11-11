@@ -128,7 +128,7 @@ def cwd(pl, segment_info, dir_shorten_len=None, dir_limit_depth=None, use_path_s
 	return ret
 
 
-def date(pl, format='%Y-%m-%d', istime=False):
+def date(pl, format='%Y-%m-%d', istime=False, isday=False, isweek=False):
 	'''Return the current date.
 
 	:param str format:
@@ -140,10 +140,9 @@ def date(pl, format='%Y-%m-%d', istime=False):
 	'''
 	return [{
 		'contents': datetime.now().strftime(format),
-		'highlight_group': (['time'] if istime else []) + ['date'],
-		'divider_highlight_group': 'time:divider' if istime else None,
+		'highlight_group': (['time'] if istime else ['day'] if isday else ['week'] if isweek else ['date']),
+		'divider_highlight_group': None,
 	}]
-
 
 def fuzzy_time(pl):
 	'''Display the current time as fuzzy time, e.g. "quarter past six".'''
